@@ -1,6 +1,8 @@
 // Reexport your entry components here
 
-export { default as Pages } from "./components/Pages.svelte";
+import P from "./components/Pages.svelte";
+export default P;
+export const Pages = P;
 
 /**
  * Parse the page param into a valid integer.
