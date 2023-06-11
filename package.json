@@ -1,9 +1,10 @@
 {
   "name": "kspg",
   "version": "0.1.0",
+  "license": "GPL-3.0-only",
   "scripts": {
     "package": "svelte-kit sync && svelte-package && publint",
-    "prepublishOnly": "npm run package"
+    "prepublishOnly": "make build.package"
   },
   "exports": {
     ".": {

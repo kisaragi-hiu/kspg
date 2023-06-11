@@ -4,18 +4,18 @@ format:
 sync:
 	npx svelte-kit sync
 
-package: sync
+build.package: sync
 	npx svelte-package
 	npx publint
 
 check: sync
 	npx svelte-check --tsconfig ./jsconfig.json
 
-.PHONY: dev build preview
+.PHONY: dev build.demo preview
 dev:
 	npx vite dev
 preview:
 	npx vite preview
-build:
+build.demo:
+	$(MAKE) build.package
 	npx vite build
-	$(MAKE) package

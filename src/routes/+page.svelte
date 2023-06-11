@@ -40,7 +40,7 @@
         code={`
 // +page.js
 import { redirect } from "@sveltejs/kit";
-import { parsePageParam } from "$lib/index";
+import { parsePageParam } from "kspg";
 export function load({ url }) {
   const pageNumberFromUrl = parsePageParam(url.searchParams.get("p"));
   if (pageNumberFromUrl === false) {
@@ -89,7 +89,7 @@ export function load({ url }) {
         code={`
 <!-- index.astro -->
 ---
-import { parsePageParam } from "$lib/index";
+import { parsePageParam } from "kspg";
 const pageNumberFromUrl = parsePageParam(Astro.url.searchParams.get("p"));
 if (pageNumberFromUrl === false) {
   return Astro.redirect(307, "/");
