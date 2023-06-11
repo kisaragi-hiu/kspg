@@ -1,5 +1,7 @@
 // Reexport your entry components here
 
+export { default as Pages } from "./components/Pages.svelte";
+
 /**
  * Parse the page param into a valid integer.
  * If the param is not present (=== null), treat it as page 1.
