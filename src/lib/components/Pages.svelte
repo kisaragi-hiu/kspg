@@ -2,6 +2,8 @@
   import format from "pupa";
   import { onDestroy } from "svelte";
 
+  export let centerTitle = "Go to page 1";
+
   /**
    * The current page number.
    * If this is a store, navigating to another page writes to it.
@@ -15,6 +17,8 @@
    */
   export let pageCount;
   export let classes = {
+    container: "join mb-4 flex justify-center",
+    center: "join-item btn w-[8ch]",
     previous: "join-item btn",
     next: "join-item btn",
     disabled: "btn-disabled",
@@ -34,7 +38,7 @@
    * @type {import("svelte/store").Unsubscriber}
    */
   let _unsubscribe;
-  if (typeof currentPage === "number") {
+  $: if (typeof currentPage === "number") {
     _currentPageNumber = currentPage;
   } else {
     _unsubscribe = currentPage.subscribe(
@@ -42,57 +46,51 @@
     );
     onDestroy(_unsubscribe);
   }
+  $: previousClasses =
+    _currentPageNumber <= 1
+      ? `${classes.previous} ${classes.disabled}`
+      : classes.previous;
+  $: nextClasses =
+    _currentPageNumber >= pageCount
+      ? `${classes.next} ${classes.disabled}`
+      : classes.next;
 </script>
 
-{JSON.stringify(format(template, [1]))}
-{#if typeof currentPage === "number"}
-  <div class="join mb-4 flex justify-center">
+<div class={classes.container}>
+  {#if typeof currentPage === "number"}
     <a
       href={format(template, [Math.max(_currentPageNumber - 1, 1)])}
-      class={classes.previous + _currentPageNumber <= 1
-        ? " " + classes.disabled
-        : ""}>«</a
+      class={previousClasses}>«</a
     >
-    <button
-      class="join-item btn w-[8ch]"
-      on:click={() => {
-        currentPage.set(1);
-        top();
-      }}>{_currentPageNumber}/{pageCount}</button
+    <a class={classes.center} href={format(template, [1])} title={centerTitle}
+      >{_currentPageNumber}/{pageCount}</a
     >
     <a
       href={format(template, [Math.min(_currentPageNumber + 1, pageCount)])}
-      class={classes.previous + _currentPageNumber >= pageCount
-        ? " " + classes.disabled
-        : ""}>»</a
+      class={nextClasses}>»</a
     >
-  </div>
-{:else}
-  <div class="join mb-4 flex justify-center">
+  {:else}
     <button
-      class={classes.previous + _currentPageNumber <= 1
-        ? " " + classes.disabled
-        : ""}
+      class={previousClasses}
       on:click={() => {
         currentPage.set(Math.max(_currentPageNumber - 1, 1));
         top();
       }}>«</button
     >
     <button
-      class="join-item btn w-[8ch]"
+      class={classes.center}
+      title={centerTitle}
       on:click={() => {
         currentPage.set(1);
         top();
       }}>{_currentPageNumber}/{pageCount}</button
     >
     <button
-      class={classes.previous + _currentPageNumber >= pageCount
-        ? " " + classes.disabled
-        : ""}
+      class={nextClasses}
       on:click={() => {
         currentPage.set(Math.min(_currentPageNumber + 1, pageCount));
         top();
       }}>»</button
     >
-  </div>
-{/if}
+  {/if}
+</div>
