@@ -1,3 +1,6 @@
+publish:
+	pnpm publish
+
 format:
 	prettier -w .
 
