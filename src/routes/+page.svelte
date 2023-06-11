@@ -13,6 +13,10 @@
   $: pageNumberFromUrl = data.pageNumberFromUrl;
 </script>
 
+<svelte:head>
+  <title>kspg - a Svelte pagination component from Kisaragi Hiu</title>
+</svelte:head>
+
 <main class="mx-auto my-16 w-[95%] max-w-[40rem]">
   <div class="prose">
     <h1>kspg</h1>

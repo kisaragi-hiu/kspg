@@ -42,3 +42,11 @@ export function load({ url }) {
 </script>
 <Pages pageCount={10} currentPage={store} />
 ```
+
+## Roadmap
+
+- (maybe) Automate publishing
+- another style where each page is listed out
+- publish demo page to Netlify
+- logo
+- proper docs
